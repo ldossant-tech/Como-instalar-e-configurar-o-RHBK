@@ -13,8 +13,6 @@ Após a instalação e execução da versão do Keycloak Operator da Red Hat no 
 
 ### Banco de dados
 
-Um banco de dados deve estar disponível e acessível a partir do namespace do cluster onde a versão do Keycloak da Red Hat está instalada. Para obter uma lista dos bancos de dados compatíveis, consulte [Configurando o banco de dados](https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/24.0/html-single/server_guide/#db-) .
-
 Para fins de desenvolvimento, você pode usar uma instalação efêmera do PostgreSQL em formato de pod. Para provisioná-la, vamos aplicar os yamls localizado no diretório infra/01-rhbk/. Vamos prosseguir via terminal usando a oc CLI.
 
 ```jsx
@@ -41,8 +39,11 @@ aplicar o yaml infra/01-rhbk/postgresql.yaml:
 ```jsx
 oc apply -f infra/01-rhbk/postgresql.yaml -n <PROJECT>
 ```
+
 Verifique se o pod foram criados em pods dentro de workload:
 <IMAGEM POSTGRESQL>
+
+### Implantação do CR Red Hat do Keycloak
 
 Para implantar a versão do Keycloak para Red Hat, você cria um Recurso Personalizado (CR) com base na Definição de Recurso Personalizado (CRD) do Keycloak.
 
