@@ -64,3 +64,7 @@ Execute dentro do CLI:
 ```jsx
 oc apply -f keycloak.yaml -n <PROJECT>
 ```
+
+Espero um momento, pois pode levar algum tempo para que todos os recursos do RHBK seja provisionados. Por fim, verifique se o recurso foi criado com o status pronto:
+
+<IMAGEM RHBK>
