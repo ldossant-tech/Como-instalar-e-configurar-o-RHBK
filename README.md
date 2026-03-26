@@ -1,70 +1,99 @@
 # Como instalar e configurar o RHBK
-- [Como instalar e configurar o RHBK](#como-instalar-e-configurar-o-rhbk)
+- [Como instalar e configurar o RHBK](#como-instalar-e-configurar-o-rhbk)  
+  - [Instalação do Operator](#instalacão-do-operator)
   - [Banco de dados](#banco-de-dados)
-  - [Implantação do CR Red Hat do Keycloak](#implantação-do-cr-red-hat-do-keycloak)
+  - [Implantação do Keycloak (CR)](#implantação-do-keycloak-(CR))
+ 
+## Instalação do Operator
 
-1. Abra o console web da plataforma OpenShift Container Platform.
-2. Na coluna da esquerda, clique em Início , Operadores , OperatorHub .
-3. Procure por "Keycloak" na caixa de pesquisa.
-4. Selecione a operadora na lista de resultados.
-5. Siga as instruções na tela.
+Siga os passos abaixo para instalar o **Keycloak Operator** no OpenShift:
 
-Após a instalação e execução da versão do Keycloak Operator da Red Hat no namespace do cluster, você poderá configurar os demais pré-requisitos de implantação.
+1. Acesse o console web do **OpenShift Container Platform**
+2. No menu lateral, navegue até:  
+   **Início → Operadores → OperatorHub**
+3. No campo de busca, digite **Keycloak**
+4. Selecione o operador da Red Hat
+5. Clique em **Instalar** e siga as instruções padrão
 
-### Banco de dados
+Após a instalação, aguarde até que o Operator esteja rodando no namespace desejado.
+
+---
+
+## Banco de dados
 
 Para fins de desenvolvimento, você pode usar uma instalação efêmera do PostgreSQL em formato de pod. Para provisioná-la, vamos aplicar os yamls localizado no diretório infra/01-rhbk/. Vamos prosseguir via terminal usando a oc CLI.
 
-```jsx
+### Passo 1 — Acesse o diretório
+
+```bash
 cd infra/01-rhbk/
 ```
-Faça login no OpenShift usando o comando:
 
-```jsx
+### Passo 2 — Login no OpenShift
+
+```bash
 oc login -u <USER> -p <PASSWORD> <HOST>:6443
 ```
 
-entre no namespace do projeto:
+### Passo 3 — Selecionar o projeto
 
-```jsx
+```bash
 oc project <PROJECT>
 ```
 
-Agora precisamos ter um banco de dados para o RHBK.
+### Passo 4 — Subir o PostgreSQL
+Agora vamos criar o banco de dados necessário para o RHBK:
 
-Para fins de desenvolvimento, você pode usar uma instalação efêmera do PostgreSQL em formato de pod.
-
-aplicar o yaml infra/01-rhbk/postgresql.yaml:
-
-```jsx
+```bash
 oc apply -f infra/01-rhbk/postgresql.yaml -n <PROJECT>
 ```
 
-Verifique se o pod foram criados em pods dentro de workload:
+### Passo 5 — Validar execução
+Verifique se o pod foi criado corretamente:
+
+Acesse Workloads → Pods no OpenShift
+Confirme se o pod do PostgreSQL está com status Running
+
 <IMAGEM POSTGRESQL>
 
-### Implantação do CR Red Hat do Keycloak
+## Implantação do Keycloak (CR)
+Agora vamos implantar o Red Hat Build of Keycloak (RHBK).
 
-Para implantar a versão do Keycloak para Red Hat, você cria um Recurso Personalizado (CR) com base na Definição de Recurso Personalizado (CRD) do Keycloak.
+### Passo 1 — Criar secret do banco
 
-Considere armazenar as credenciais do banco de dados em um segredo separado. Digite os seguintes comandos:
+Execute o comando abaixo para armazenar as credenciais:
 
-Execute dentro do CLI:
-
-```jsx
+```bash
 oc create secret generic keycloak-db-secret \
   --from-literal=username=testuser \
   --from-literal=password=testpassword
 ```
+## Passo 2 — Aplicar o Keycloak
 
-Você pode personalizar diversos campos usando o CRD do Keycloak. Para uma implantação básica, vamos utilizar o recurso dentro de 01-infra/keycloak.yaml
+Utilize o arquivo de configuração localizado em 01-infra/keycloak.yaml.
 
 Execute dentro do CLI:
 
-```jsx
+```bash
 oc apply -f keycloak.yaml -n <PROJECT>
 ```
 
-Espero um momento, pois pode levar algum tempo para que todos os recursos do RHBK seja provisionados. Por fim, verifique se o recurso foi criado com o status pronto:
+### Passo 3 — Aguardar provisionamento
+A criação do Keycloak pode levar alguns minutos.
 
+### Passo 4 — Validar instalação
+
+Verifique se o recurso foi criado corretamente:
+
+Acesse o OpenShift
+Vá até os recursos do Keycloak
+Confirme se o status está como Ready
 <IMAGEM RHBK>
+
+##Resultado esperado
+
+Ao final deste processo, você terá:
+
+- Keycloak Operator instalado
+- Banco PostgreSQL rodando
+- Keycloak (RHBK) provisionado e ativo
