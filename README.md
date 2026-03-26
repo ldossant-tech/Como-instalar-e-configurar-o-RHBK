@@ -3,6 +3,7 @@
   - [Instalação do Operator](#instalacão-do-operator)
   - [Banco de dados](#banco-de-dados)
   - [Implantação do Keycloak (CR)](#implantação-do-keycloak-cr)
+  - [Resultado esperado](#resultado-esperado)
 
 ---
  
@@ -57,6 +58,8 @@ Confirme se o pod do PostgreSQL está com status Running
 
 <IMAGEM POSTGRESQL>
 
+---
+
 ## Implantação do Keycloak (CR)
 Agora vamos implantar o Red Hat Build of Keycloak (RHBK).
 
@@ -69,7 +72,7 @@ oc create secret generic keycloak-db-secret \
   --from-literal=username=testuser \
   --from-literal=password=testpassword
 ```
-## Passo 2 — Aplicar o Keycloak
+### Passo 2 — Aplicar o Keycloak
 
 Utilize o arquivo de configuração localizado em 01-infra/keycloak.yaml.
 
@@ -91,7 +94,9 @@ Vá até os recursos do Keycloak
 Confirme se o status está como Ready
 <IMAGEM RHBK>
 
-##Resultado esperado
+---
+
+## Resultado esperado
 
 Ao final deste processo, você terá:
 
