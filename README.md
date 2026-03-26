@@ -3,9 +3,10 @@
   - [Instalação do Operator](#instalacão-do-operator)
   - [Banco de dados](#banco-de-dados)
   - [Implantação do Keycloak (CR)](#implantação-do-keycloak-(CR))
+
+---
  
 ## Instalação do Operator
-
 Siga os passos abaixo para instalar o **Keycloak Operator** no OpenShift:
 
 1. Acesse o console web do **OpenShift Container Platform**
