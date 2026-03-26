@@ -2,7 +2,7 @@
 - [Como instalar e configurar o RHBK](#como-instalar-e-configurar-o-rhbk)  
   - [Instalação do Operator](#instalacão-do-operator)
   - [Banco de dados](#banco-de-dados)
-  - [Implantação do Keycloak (CR)](#implantação-do-keycloak-(CR))
+  - [Implantação do Keycloak (CR)](#implantação-do-keycloak(CR))
 
 ---
  
