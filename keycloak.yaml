@@ -10,7 +10,7 @@ spec:
 
   db:
     vendor: postgres
-    host: postgres-db
+    host: postgresql-db
     database: keycloak
     usernameSecret:
       name: keycloak-db-secret
@@ -20,7 +20,7 @@ spec:
       key: password
 
   hostname:
-    hostname: keycloak-service-kafka.apps.ldossant.vmware.tamlab.rdu2.redhat.com
+    hostname: https://console-openshift-console.apps.cluster-bg4d4.bg4d4.sandbox3088.opentlc.com  
 
   proxy:
     headers: xforwarded
